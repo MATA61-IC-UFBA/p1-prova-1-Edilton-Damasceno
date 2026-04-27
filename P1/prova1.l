@@ -11,9 +11,29 @@ int yylex();
 
 %%
 
-/* copiar E2 e fazer as extensões */
+{REAL} {
+    lexema = yytext;
+    return NUM;
+}
 
+{INT} {
+    lexema = yytext;
+    return NUM;
+}
 
-.            { return ERROR; }
+"+"     { return PLUS; }
+"-"     { return MINUS; }
+"*"     { return TIMES; }
+"/"     { return DIV; }
+"("     { return LPAREN; }
+")"     { return RPAREN; }
+
+\n      { return EOL; }
+
+[ \t]   { /*Ignora os espaços*/ }
+
+. { /*Qualquer caracter que não foi mapeado*/
+    return ERROR;
+}
 
 %%
