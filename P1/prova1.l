@@ -1,39 +1,30 @@
+%option noyywrap
 %{
-#include "prova1.tab.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-void yyerror(const char *msg);
-int yylex();
+#include "prova1.tab.h"
 %}
-
-%option noyywrap
 
 %%
 
-{REAL} {
-    lexema = yytext;
-    return NUM;
-}
-
-{INT} {
-    lexema = yytext;
-    return NUM;
-}
-
-"+"     { return PLUS; }
-"-"     { return MINUS; }
-"*"     { return TIMES; }
-"/"     { return DIV; }
-"("     { return LPAREN; }
-")"     { return RPAREN; }
-
-\n      { return EOL; }
-
-[ \t]   { /*Ignora os espaços*/ }
-
-. { /*Qualquer caracter que não foi mapeado*/
-    return ERROR;
-}
+"//".* { }
+"print"         { return PRINT; }
+"concat"        { return CONCAT; }
+"length"        { return LENGTH; }
+[0-9]+          { return NUM; }
+\"[^\"]*\"      { return STRING; }
+[a-zA-Z][a-zA-Z0-9]* { return ID; }
+"="             { return ASSIGN; }
+"+"             { return PLUS; }
+"-"             { return MINUS; }
+"*"             { return TIMES; }
+"/"             { return DIV; }
+"("             { return LPAREN; }
+")"             { return RPAREN; }
+","             { return COMMA; }
+\n              { return EOL; }
+[ \t]           { }
+.               { return ERROR; }
 
 %%
