@@ -2,19 +2,18 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "prova1.tab.h"
 %}
 
 %%
 
-"//".* { }
+"//".* {}
 "print"         { return PRINT; }
 "concat"        { return CONCAT; }
 "length"        { return LENGTH; }
 [0-9]+          { return NUM; }
 \"[^\"]*\"      { return STRING; }
-[a-zA-Z][a-zA-Z0-9]* { return ID; }
+[a-zA-Z][a-zA-Z0-9_]* { return IDENT; }
 "="             { return ASSIGN; }
 "+"             { return PLUS; }
 "-"             { return MINUS; }
@@ -24,7 +23,7 @@
 ")"             { return RPAREN; }
 ","             { return COMMA; }
 \n              { return EOL; }
-[ \t]           { }
+[ \t\r]+        {}
 .               { return ERROR; }
 
 %%
